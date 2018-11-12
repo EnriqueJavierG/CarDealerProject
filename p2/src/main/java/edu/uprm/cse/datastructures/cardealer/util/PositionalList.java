@@ -1,6 +1,8 @@
 package edu.uprm.cse.datastructures.cardealer.util;
 
-public interface PositionalList<E> {
+import java.util.Iterator;
+
+public interface PositionalList<E> extends Iterable<Position<E>> {
 	
 	public int size();
 	
@@ -25,6 +27,10 @@ public interface PositionalList<E> {
 	public E set(Position<E> p, E e);
 
 	public E remove(Position<E> p);
+
+	Iterable<Position<E>> positions();
+
+	Iterator<Position<E>> iterator();
 
 
 }

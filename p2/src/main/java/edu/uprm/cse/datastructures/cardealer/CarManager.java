@@ -8,6 +8,8 @@ package edu.uprm.cse.datastructures.cardealer;
 import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import edu.uprm.cse.datastructures.cardealer.*;
+
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -37,6 +39,33 @@ public class CarManager {
 		}
 		return allCars;
 	}
+	@GET
+	@Path("/brand/{carBrand}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Car[] getCarsSameBrand(@PathParam("carBrand") String brand) {
+		ArrayList<Car> allCars = new ArrayList<>();
+		for (int i = 0; i < carList.size(); i++) {
+			if(carList.get(i).getCarBrand().equals(brand))
+			allCars.add(carList.get(i));
+		}
+		
+		return allCars.toArray(new Car[allCars.size()]);
+	}
+	
+	@GET
+	@Path("/year/{year}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Car[] getCarsSameYear(@PathParam("year") long year) {
+		ArrayList<Car> allCars = new ArrayList<>();
+		for (int i = 0; i < carList.size(); i++) {
+			if(carList.get(i).getYear() == year)
+			allCars.add(carList.get(i));
+		}
+		
+		return allCars.toArray(new Car[allCars.size()]);
+	}
+	
+	
 	@PUT
 	@Path("/{id}/update")
 	@Produces(MediaType.APPLICATION_JSON)

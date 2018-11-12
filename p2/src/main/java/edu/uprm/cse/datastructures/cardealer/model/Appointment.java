@@ -7,12 +7,17 @@ public class Appointment {
 	private String job; // description of the job to be done (i.e.: “oil change”)
 	private double bill; // cost of the service (initially 0).
 	
+	//Constructor
 	public Appointment(long appointmentId, long carUnitId, String job, double bill) {
 		super();
 		this.appointmentId = appointmentId;
 		this.carUnitId = carUnitId;
 		this.job = job;
 		this.bill = bill;
+	}
+	//Empty constructor
+	public Appointment(){
+		
 	}
 
 	
@@ -34,6 +39,8 @@ public class Appointment {
 	public double getBill() {
 		return bill;
 	}
+	
+	
 
 
 	@Override

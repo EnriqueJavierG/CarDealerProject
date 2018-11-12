@@ -18,6 +18,9 @@ public class CarUnit {
 		this.carPlate = carPlate;
 		this.personId = personId;
 	}
+	public CarUnit() {
+		
+	}
 
 	//Getters
 	public long getCarUnitId() {
