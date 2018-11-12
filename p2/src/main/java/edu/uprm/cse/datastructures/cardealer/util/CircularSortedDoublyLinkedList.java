@@ -313,7 +313,7 @@ public class CircularSortedDoublyLinkedList<E> implements SortedList<E>{
 	@Override
 	public int lastIndex(E e) {
 		Node<E> c = header.getPrev();
-		int counter = this.size();
+		int counter = this.size() - 1;
 		while(c != header) {
 			if(c.getElement().equals(e)) {
 				return counter;
