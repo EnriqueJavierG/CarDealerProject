@@ -9,8 +9,23 @@ public class Car {
 	private String carModel;
 	private String carModelOption;
 	private double carPrice;
-	private long year;
-	
+	private long carYear;
+
+	//Constructor
+	public Car(long carId, String carBrand, String carModel, String carModelOption, double carPrice, long carYear) {
+		super();
+		this.carId = carId;
+		this.carBrand = carBrand;
+		this.carModel = carModel;
+		this.carModelOption = carModelOption;
+		this.carPrice = carPrice;
+		this.carYear = carYear;
+	}
+	// Empty constructor
+	public Car() {
+
+	}
+	//Getters
 	public long getCarId() {
 		return carId;
 	}
@@ -26,22 +41,11 @@ public class Car {
 	public double getCarPrice() {
 		return carPrice;
 	}
-	public long getYear() {
-		return year;
+	public long getCarYear() {
+		return carYear;
 	}
-	
-	public Car() {
-		
-	}
-	public Car(long carId, String carBrand, String carModel, String carModelOption, double carPrice, long year) {
-		super();
-		this.carId = carId;
-		this.carBrand = carBrand;
-		this.carModel = carModel;
-		this.carModelOption = carModelOption;
-		this.carPrice = carPrice;
-		this.year = year;
-	}
+
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -71,7 +75,7 @@ public class Car {
 			return false;
 		if (carId != other.carId)
 			return false;
-		if(year != other.year)
+		if(carYear != other.carYear)
 			return false;
 		if (carModel == null) {
 			if (other.carModel != null)
@@ -90,7 +94,7 @@ public class Car {
 	@Override
 	public String toString() {
 		return "Car [carId=" + carId + ", carBrand=" + carBrand + ", carModel=" + carModel + ", carModelOption="
-				+ carModelOption + ", carPrice=" + carPrice + "year=" + year+ "]";
+				+ carModelOption + ", carPrice=" + carPrice + "year=" + carYear+ "]";
 	}
-	
+
 }

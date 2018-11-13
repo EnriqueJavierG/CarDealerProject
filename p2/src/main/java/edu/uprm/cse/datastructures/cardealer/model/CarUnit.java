@@ -1,5 +1,8 @@
 package edu.uprm.cse.datastructures.cardealer.model;
-
+/**
+ * @author Enrique J. Gonzalez Mendez
+ *
+ */
 public class CarUnit {
 	private long carUnitId; // internal id of the unit
 	private long carId; // id of the car object that represents the general for the car. 
@@ -9,6 +12,7 @@ public class CarUnit {
 	private String carPlate; // car plate (null until sold)
 	private long personId; // id of the person who purchased the car. (null until purchased) 
 	
+	//Constructor
 	public CarUnit(long carUnitId, long carId, String vin, String color, String carPlate, long personId) {
 		super();
 		this.carUnitId = carUnitId;
@@ -18,6 +22,7 @@ public class CarUnit {
 		this.carPlate = carPlate;
 		this.personId = personId;
 	}
+	// Empty Constructor
 	public CarUnit() {
 		
 	}
@@ -46,7 +51,14 @@ public class CarUnit {
 	public long getPersonId() {
 		return personId;
 	}
-
+	
+	//Setters for when the car is sold
+	public void setCarPlate(String carPlate) {
+		this.carPlate = carPlate;
+	}
+	public void setPersonId(long personId) {
+		this.personId = personId;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;

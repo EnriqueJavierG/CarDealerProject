@@ -1,5 +1,6 @@
 package edu.uprm.cse.datastructures.cardealer;
 import javax.ws.rs.Path;
+
 import javax.ws.rs.core.MediaType;
 import edu.uprm.cse.datastructures.cardealer.*;
 import java.util.Iterator;
@@ -22,14 +23,13 @@ public class CarUnitManager {
 	private static final SortedList<CarUnit> carList = new CircularSortedDoublyLinkedList<CarUnit>(carUnitComp);
 	
 	@GET
-	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
 	public CarUnit[] getAllCarUnits() {
 		CarUnit[] allCarUnits = new CarUnit[carList.size()];
 		for (int i = 0; i < carList.size(); i++) {
 			allCarUnits[i] = carList.get(i);//adds carUnit to the array
 		}
-		return allCarUnits;
+		return allCarUnits;//return all cars
 	}
 	@PUT
 	@Path("/{id}/update")
@@ -56,13 +56,14 @@ public class CarUnitManager {
 		carList.add(cta);
 		return Response.status(Response.Status.CREATED).build();
 	}
+	
 	@DELETE
 	@Path("{id}/delete")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteCar(@PathParam("id") long id) {
 		for(int i = 0; i < carList.size();i++) {
 			if(carList.get(i).getCarId() == id){
-				carList.remove(i);
+				carList.remove(i);//remove from list
 				return Response.status(Response.Status.OK).build();
 			}
 		}

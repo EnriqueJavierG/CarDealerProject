@@ -58,7 +58,7 @@ public class CarManager {
 	public Car[] getCarsSameYear(@PathParam("year") long year) {
 		ArrayList<Car> allCars = new ArrayList<>();
 		for (int i = 0; i < carList.size(); i++) {
-			if(carList.get(i).getYear() == year)
+			if(carList.get(i).getCarYear() == year)
 			allCars.add(carList.get(i));
 		}
 		

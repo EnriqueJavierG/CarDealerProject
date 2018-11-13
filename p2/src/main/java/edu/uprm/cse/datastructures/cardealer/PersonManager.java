@@ -15,13 +15,12 @@ import edu.uprm.cse.datastructures.cardealer.model.Person;
 import edu.uprm.cse.datastructures.cardealer.model.PersonComparator;
 import edu.uprm.cse.datastructures.cardealer.util.CircularSortedDoublyLinkedList;
 import edu.uprm.cse.datastructures.cardealer.util.SortedList;
-@Path("/Person")
+@Path("/person")
 public class PersonManager {
 	static PersonComparator personComp = new PersonComparator();
 	private static final SortedList<Person> personList = new CircularSortedDoublyLinkedList<Person>(personComp);
 
 	@GET
-	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Person[] getAllPersons() {
 		Person[] allPersons = new Person[personList.size()];

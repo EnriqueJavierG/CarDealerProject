@@ -1,48 +1,49 @@
 package edu.uprm.cse.datastructures.cardealer.model;
 
 public class Person {
-	
+
 	private long personId; // internal id of the person
 	private String firstName; // first name
-	private String lastName; // lastname
+	private String lastName; // last name
 	private Integer age; // age
 	private char gender; // gender
 	private String phone; // phone number
-	
+
 	//Constructor
-		public Person(long personId, String firstName, String lastName, Integer age, char gender, String phone) {
-			super();
-			this.personId = personId;
-			this.firstName = firstName;
-			this.lastName = lastName;
-			this.age = age;
-			this.gender = gender;
-			this.phone = phone;
-		}
-		public Person() {
-			
-		}
+	public Person(long personId, String firstName, String lastName, Integer age, char gender, String phone) {
+		super();
+		this.personId = personId;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.age = age;
+		this.gender = gender;
+		this.phone = phone;
+	}
+	//Empty Constructor
+	public Person() {
+
+	}
 	//Getters
 	public long getPersonId() {
 		return personId;
 	}
-	
+
 	public String getFirstName() {
 		return firstName;
 	}
-	
+
 	public String getLastName() {
 		return lastName;
 	}
-	
+
 	public Integer getAge() {
 		return age;
 	}
-	
+
 	public char getGender() {
 		return gender;
 	}
-	
+
 	public String getPhone() {
 		return phone;
 	}
@@ -58,8 +59,8 @@ public class Person {
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		return result;
 	}
-	
-	
+
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -100,6 +101,6 @@ public class Person {
 		return "Person [personId=" + personId + ", firstName=" + firstName + ", lastName=" + lastName + ", age=" + age
 				+ ", gender=" + gender + ", phone=" + phone + "]";
 	}
-	
+
 
 }
