@@ -18,12 +18,14 @@ import edu.uprm.cse.datastructures.cardealer.util.Position;
 import edu.uprm.cse.datastructures.cardealer.util.PositionalList;
 @Path("/appointment")
 public class AppointmentManager {
+	
 	private static final PositionalList<Appointment> Monday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Tuesday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Wednesday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Thursday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Friday = new LinkedPositionalList<Appointment>();
 
+	@SuppressWarnings("unchecked")
 	private static final PositionalList<Appointment>[] days =  new PositionalList[] {Monday,Tuesday, Wednesday,Thursday,Friday};
 
 	@GET
@@ -118,11 +120,11 @@ public class AppointmentManager {
 			list.add(app.getElement());
 		}
 
-		return list.toArray(new Appointment[list.size()]);
+		return list.toArray(new Appointment[list.size()]);//return array
 	}
 
 	@GET
-	@Path("{id}")// Assuming that all appointments have different ids in the all list
+	@Path("{id}")// Assuming that all appointments have different IDs in the all list
 	@Produces(MediaType.APPLICATION_JSON)
 	public Appointment getAppointment(@PathParam("id") long id) {
 		for (int i = 0; i < days.length; i++) {
