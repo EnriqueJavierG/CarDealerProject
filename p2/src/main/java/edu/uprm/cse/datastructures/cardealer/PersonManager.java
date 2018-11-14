@@ -36,6 +36,7 @@ public class PersonManager {
 		for(int i = 0; i< personList.size();i++) {
 			if(ptu.getPersonId() == personList.get(i).getPersonId()) {
 				personList.remove(i);
+				personList.add(ptu);
 				return Response.status(Response.Status.OK).build();
 			}
 		}
@@ -74,7 +75,7 @@ public class PersonManager {
 	public Person getPerson(@PathParam("id") long id) {
 		for (int i = 0; i < personList.size(); i++) {
 			if(personList.get(i).getPersonId() == id) {
-				return personList.get(i);
+				return personList.get(i);//will return the  person with the respective ID
 			}
 		}
 		throw new NotFoundException( new JsonError("Error","Car"+id+" not found"));
