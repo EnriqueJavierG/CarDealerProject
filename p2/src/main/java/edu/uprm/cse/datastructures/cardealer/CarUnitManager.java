@@ -36,8 +36,9 @@ public class CarUnitManager {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response update(CarUnit ctu) {
 		for(int i = 0; i< carList.size();i++) {
-			if(ctu.getCarId() == carList.get(i).getCarId()) {
+			if(ctu.getCarUnitId() == carList.get(i).getCarUnitId()) {
 				carList.remove(i);
+				carList.add(ctu);
 			
 				return Response.status(Response.Status.OK).build();
 			}
@@ -53,6 +54,10 @@ public class CarUnitManager {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addCarUnit(CarUnit cta) {
+		for(int i = 0; i < carList.size(); i++){
+			if(carList.get(i).getCarUnitId() == cta.getCarUnitId())
+				throw new IllegalArgumentException("a car unit with this id already exists");// to prevent two carUnits with the same IDs
+		}
 		carList.add(cta);
 		return Response.status(Response.Status.CREATED).build();
 	}
@@ -61,8 +66,9 @@ public class CarUnitManager {
 	@Path("{id}/delete")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteCar(@PathParam("id") long id) {
+		if(carList.isEmpty())throw new NotFoundException( new JsonError("Error","list empty"));
 		for(int i = 0; i < carList.size();i++) {
-			if(carList.get(i).getCarId() == id){
+			if(carList.get(i).getCarUnitId() == id){
 				carList.remove(i);//remove from list
 				return Response.status(Response.Status.OK).build();
 			}
@@ -74,7 +80,7 @@ public class CarUnitManager {
 	@Produces(MediaType.APPLICATION_JSON)
 	public CarUnit getCar(@PathParam("id") long id) {
 		for (int i = 0; i < carList.size(); i++) {
-			if(carList.get(i).getCarId() == id) {
+			if(carList.get(i).getCarUnitId() == id) {
 				return carList.get(i);
 			}
 		}

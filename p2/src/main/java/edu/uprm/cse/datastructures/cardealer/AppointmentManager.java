@@ -1,3 +1,6 @@
+/**
+ * @author Enrique J. Gonzalez 
+ */
 package edu.uprm.cse.datastructures.cardealer;
 
 import java.util.ArrayList;
@@ -18,18 +21,15 @@ import edu.uprm.cse.datastructures.cardealer.util.Position;
 import edu.uprm.cse.datastructures.cardealer.util.PositionalList;
 @Path("/appointment")
 public class AppointmentManager {
-	
 	private static final PositionalList<Appointment> Monday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Tuesday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Wednesday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Thursday = new LinkedPositionalList<Appointment>();
 	private static final PositionalList<Appointment> Friday = new LinkedPositionalList<Appointment>();
 
-	@SuppressWarnings("unchecked")
-	private static final PositionalList<Appointment>[] days =  new LinkedPositionalList[] {(LinkedPositionalList) Monday,(LinkedPositionalList) Tuesday, (LinkedPositionalList) Wednesday,(LinkedPositionalList) Thursday,(LinkedPositionalList) Friday};
+	private static final PositionalList<Appointment>[] days =  new LinkedPositionalList[] {(LinkedPositionalList)Monday,(LinkedPositionalList) Tuesday, (LinkedPositionalList) Wednesday,(LinkedPositionalList) Thursday, (LinkedPositionalList)Friday};
 
 	@GET
-	@Path("")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Appointment[] getAllAppointments() {
 		int size = Monday.size() + Tuesday.size() + Wednesday.size() + Thursday.size() + Friday.size();
@@ -38,11 +38,12 @@ public class AppointmentManager {
 		for (int i = 0; i < days.length; i++) {
 			for(Position<Appointment> app: days[i]) {
 				allAppointments[index++] = app.getElement();
+
 			}
 		}
 		return allAppointments;
 	}
-	
+
 	@PUT
 	@Path("/{id}/update")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -58,32 +59,35 @@ public class AppointmentManager {
 		}
 		return Response.status(Response.Status.NOT_FOUND).build();
 	}
-	
+
 	@POST
-	@Path("/add/day/{day}")
+	@Path("/add/{day}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Response addAppointment(Appointment ata,@PathParam("day") String day ) {
-		switch(day.toLowerCase()) {
-		//Can be upperCase also but will not affect
-		case "monday":
+	public Response addAppointment(Appointment ata,@PathParam("day") int day ) {
+		
+		switch(day) {
+		//Can be upperCase also
+		case 0:
 			Monday.addLast(ata);
 			break;
-		case "tuesday":
+		case 1:
 			Tuesday.addLast(ata);
 			break;
-		case "wednesday":
+		case 2:
 			Wednesday.addLast(ata);
 			break;
-		case "thursday":
+		case 3:
 			Thursday.addLast(ata);
 			break;
-		case "friday":
+		case 4:
 			Friday.addLast(ata);
 			break;
 		default:
 			return Response.status(Response.Status.NOT_FOUND).build();
+
 		}
 		return Response.status(Response.Status.CREATED).build();
+
 	}
 	
 	/**
@@ -96,6 +100,7 @@ public class AppointmentManager {
 	@Path("{id}/delete")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response deleteAppointment(@PathParam("id") long id) {
+		//int index = 0;
 		for (int i = 0; i < days.length; i++) {
 			for(Position<Appointment> app: days[i]) {
 				if(app.getElement().getAppointmentId() == id) {
@@ -107,22 +112,8 @@ public class AppointmentManager {
 		}
 		throw new NotFoundException( new JsonError("Error","Car"+id+" not found"));
 	}
-	
-	//Get all appointments of a given day 
 	@GET
-	@Path("/day/{day}")// Assuming that all appointments have different IDs in the all list
-	@Produces(MediaType.APPLICATION_JSON)
-	public Appointment[] getAppointmentByDay(@PathParam("day") PositionalList<Appointment> day ) {
-		ArrayList<Appointment> list = new ArrayList<>();
-		for(Position<Appointment> app : day){
-			list.add(app.getElement());//adding to the array
-		}
-		return list.toArray(new Appointment[list.size()]);//return array
-	}
-	
-	// Get the appointment with the given IDs
-	@GET
-	@Path("{id}")// Assuming that all appointments have different IDs in the all list
+	@Path("{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Appointment getAppointment(@PathParam("id") long id) {
 		for (int i = 0; i < days.length; i++) {
@@ -133,4 +124,16 @@ public class AppointmentManager {
 		}
 		throw new NotFoundException( new JsonError("Error","Appointment"+id+" not found"));
 	}
+	@GET
+	@Path("/day/{day}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Appointment[] getAppointmentByDay(@PathParam("day") int day) {
+		ArrayList<Appointment> allAppointments = new ArrayList<>();
+		for(Position<Appointment> app: days[day]) {
+			allAppointments.add(app.getElement());
+		}
+		return allAppointments.toArray(new Appointment[allAppointments.size()]);
+		
+	}
+
 }

@@ -45,8 +45,13 @@ public class PersonManager {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response addPerson(Person pta) {
-		
-		
+		for(int i = 0; i < personList.size(); i ++){
+			if(personList.get(i).getPersonId() == pta.getPersonId()){
+				// to prevent two persons with the same IDs
+				return Response.status(Response.Status.CONFLICT).build();
+				//will launch this response if the person already exist in the list
+			}	
+		}
 		personList.add(pta);
 		return Response.status(Response.Status.CREATED).build();
 		
